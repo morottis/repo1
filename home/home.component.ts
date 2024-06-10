@@ -3,6 +3,7 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { CommonModule } from '@angular/common';
 import { Housinglocation } from '../housinglocation';
 import { PrimoServiceService } from '../service/primo-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,18 +23,19 @@ export class HomeComponent {
   get Title() {
     return this.title
   }
-
-  constructor( private primo_servizio : PrimoServiceService)
+  constructor( private primo_servizio : PrimoServiceService , private route:  ActivatedRoute)
   {
     this.title = primo_servizio.titolo; 
     primo_servizio.scritta_da_prendere = this.scritta_per_about; 
     console.log(primo_servizio.scritta_da_prendere);  
+    console.log(this.route.snapshot.paramMap.get('id'));// stampo id 
   }
 
   cliccato()
   {
     this.evento.emit(this.scritta_da_emettere); 
   }
+
 
   readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
   scritta : string = 'search'; 
